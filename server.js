@@ -18,11 +18,31 @@ const db = mysql.createConnection(
     console.log('Connected to the election database.')
 );
 
-app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello World'
+//get all cadidates
+app.get('/api/candidates', (req, res) => {
+    const sql = `SELECT * FROM candidates`;
+
+
+    db.query(sql, (err, rows) => {
+        if(err) {
+            res.status(500).json({error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
     });
-  });
+});
+
+// app.get('/', (req, res) => {
+
+
+
+//     res.json({
+//       message: 'Hello World'
+//     });
+//   });
 
 //   db.query('SELECT * FROM candidates', (err, rows) => {
 //     console.log(rows);
@@ -45,16 +65,16 @@ app.get('/', (req, res) => {
 //   });
 
 // Create a candidate
-const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
-              VALUES (?,?,?,?)`;
-const params = [1, 'Ronald', 'Firbank', 1];
+// const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
+//               VALUES (?,?,?,?)`;
+// const params = [1, 'Ronald', 'Firbank', 1];
 
-db.query(sql, params, (err, result) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(result);
-});
+// db.query(sql, params, (err, result) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(result);
+// });
 
   // Default response for any other request (Not Found)
 app.use((req, res) => {
