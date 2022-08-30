@@ -111,9 +111,7 @@ router.delete('/candidate/:id', (req, res) => {
 });
 
 // Create a candidate
-router.post('/candidate', ({
-    body
-}, res) => {
+router.post('/candidate', ({ body }, res) => {
     const errors = inputCheck(body, 'first_name', 'last_name', 'industry_connected');
     if (errors) {
         res.status(400).json({
